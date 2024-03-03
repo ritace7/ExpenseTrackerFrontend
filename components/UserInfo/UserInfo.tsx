@@ -5,9 +5,11 @@ import { UserDataProps } from "@/types";
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useDataContext } from "../Context/store";
 
 const UserInfo = ({ params }: UserDataProps) => {
 	const router = useRouter();
+	const { setData } = useDataContext();
 	const [editMode, setEditMode] = useState<boolean>(false);
 	const [expenseForCoffee, setExpenseForCoffee] = useState<number>(0);
 	const [expenseForFood, setExpenseForFood] = useState<number>(0);
@@ -30,7 +32,10 @@ const UserInfo = ({ params }: UserDataProps) => {
 				) : (
 					<CustomButton
 						displayText="Exit"
-						onClickHandler={() => router.push("/")}
+						onClickHandler={() => {
+							setData([]);
+							router.push("/");
+						}}
 					/>
 				)}
 			</div>
